@@ -39,6 +39,7 @@
             AllParticipantFilterRadio = new RadioButton();
             loadParticipantButton = new Button();
             timer = new GroupBox();
+            OpenStopWatchModalButton = new Button();
             AdjustTimerButton = new Button();
             ResetTimerButton = new Button();
             AddResultButton = new Button();
@@ -210,6 +211,7 @@
             // timer
             // 
             timer.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            timer.Controls.Add(OpenStopWatchModalButton);
             timer.Controls.Add(AdjustTimerButton);
             timer.Controls.Add(ResetTimerButton);
             timer.Controls.Add(AddResultButton);
@@ -223,6 +225,16 @@
             timer.TabIndex = 8;
             timer.TabStop = false;
             timer.Text = "Timer";
+            // 
+            // OpenStopWatchModalButton
+            // 
+            OpenStopWatchModalButton.Location = new Point(681, 22);
+            OpenStopWatchModalButton.Name = "OpenStopWatchModalButton";
+            OpenStopWatchModalButton.Size = new Size(31, 23);
+            OpenStopWatchModalButton.TabIndex = 10;
+            OpenStopWatchModalButton.Text = "+";
+            OpenStopWatchModalButton.UseVisualStyleBackColor = true;
+            OpenStopWatchModalButton.Click += OpenStopWatchModalButton_Click;
             // 
             // AdjustTimerButton
             // 
@@ -612,5 +624,6 @@
         private Panel panel5;
         private ColorDialog colorDialog1;
         private ToolStripMenuItem aboutToolStripMenuItem;
+        private Button OpenStopWatchModalButton;
     }
 }

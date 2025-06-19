@@ -5,6 +5,7 @@ using System.Xml.Serialization;
 using TimeTracker.Data;
 using TimeTracker.Models;
 using TimeTracker.Services;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace TimeTracker
 {
@@ -75,6 +76,26 @@ namespace TimeTracker
 
         #region Stopwatch
 
+        private StopWatchForm _stopWatchForm;
+
+        private void OpenStopWatchModalButton_Click(object sender, EventArgs e)
+        {
+            ShowStopwatch();
+        }
+
+        private void ShowStopwatch()
+        {
+            if (_stopWatchForm == null || _stopWatchForm.IsDisposed)
+            {
+                _stopWatchForm = new StopWatchForm();
+                _stopWatchForm.Show();
+            }
+            else
+            {
+                _stopWatchForm.BringToFront();
+            }
+        }
+
         private void AdjustTimerButton_Click(object sender, EventArgs e)
         {
             var adjustForm = new SetTimerForm(_stopwatch.Elapsed);
@@ -128,6 +149,11 @@ namespace TimeTracker
         private void Timer_Tick(object sender, EventArgs e)
         {
             timerLabel.Text = _stopwatch.Elapsed.ToString(@"hh\:mm\:ss\.ff");
+
+            if (_stopWatchForm != null && !_stopWatchForm.IsDisposed)
+            {
+                _stopWatchForm.UpdateDisplay(timerLabel.Text);
+            }
         }
 
         private void ResetTimerButton_Click(object sender, EventArgs e)
@@ -408,6 +434,7 @@ namespace TimeTracker
             _timer.Dispose();
             base.OnFormClosed(e);
         }
+
 
     }
 }
