@@ -89,6 +89,7 @@
             Controls.Add(label1);
             Controls.Add(pictureBox1);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "AboutForm";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Om TimeTracker";

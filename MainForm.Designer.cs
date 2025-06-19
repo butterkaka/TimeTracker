@@ -535,6 +535,7 @@
             ClientSize = new Size(1384, 862);
             Controls.Add(HorizontalSplitContainer);
             Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MainForm";
             Text = "TimeTracker";
             CompetionControlPanel.ResumeLayout(false);
