@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace TimeTracker
 {
     public partial class AboutForm : Form
@@ -21,7 +22,7 @@ namespace TimeTracker
 
             Version? version = Assembly.GetExecutingAssembly().GetName().Version;
 
-            versionLabel.Text = versionLabel.Text.Replace("@version", version.ToString());
+            versionLabel.Text = versionLabel.Text.Replace("@version", version?.ToString() ?? "");
 
         }
 

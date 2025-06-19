@@ -10,6 +10,10 @@
     <ApplicationIcon>Assets\runner_stopwatch_icon.ico</ApplicationIcon>
     <Title>TimeTracker</Title>
     <Authors>Dick Andersson</Authors>
+    <Copyright>Agnäs IK</Copyright>
+    <PackageIcon>timetracker.png</PackageIcon>
+    <AssemblyVersion>1.0.1</AssemblyVersion>
+    <FileVersion>1.0.1</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -36,6 +40,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Assets\timetracker.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Update="README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
