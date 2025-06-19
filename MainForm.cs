@@ -292,6 +292,9 @@ namespace TimeTracker
                 {
                     participant.Finished = true;
                     _competition.AddResultAndParticipant(_stopwatch.Elapsed, participant);
+
+                    // Refresh participant table
+                    FilterParticipants(NotInGoalParticipantFilterRadio.Checked);
                 }
             }
         }
@@ -368,6 +371,7 @@ namespace TimeTracker
             }
 
             resultGridView.DataSource = _competition.Results;
+            ParticipantDataGridView.DataSource = _participantBindingSource;
 
             CompetitionNametextBox.Text = _competition.Name;
             CompetitionNumberOfParticpants.Value = _competition.NumberOfParticipants;
@@ -388,6 +392,9 @@ namespace TimeTracker
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _competition = new Competition();
+            TimerIsRunning = false;
+            _participantBindingSource.DataSource = new BindingList<Participant>();
+
             dataBindning();
         }
 
