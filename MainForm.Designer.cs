@@ -39,7 +39,6 @@
             AllParticipantFilterRadio = new RadioButton();
             loadParticipantButton = new Button();
             timer = new GroupBox();
-            OpenStopWatchModalButton = new Button();
             AdjustTimerButton = new Button();
             ResetTimerButton = new Button();
             AddResultButton = new Button();
@@ -62,6 +61,8 @@
             toolStripSeparator1 = new ToolStripSeparator();
             toolStripSeparator2 = new ToolStripSeparator();
             exitToolStripMenuItem = new ToolStripMenuItem();
+            viewToolStripMenuItem = new ToolStripMenuItem();
+            öppnaTidtagareIEgetFönsterToolStripMenuItem = new ToolStripMenuItem();
             aboutToolStripMenuItem = new ToolStripMenuItem();
             VerticalSplitContainer = new SplitContainer();
             panel4 = new Panel();
@@ -211,7 +212,6 @@
             // timer
             // 
             timer.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            timer.Controls.Add(OpenStopWatchModalButton);
             timer.Controls.Add(AdjustTimerButton);
             timer.Controls.Add(ResetTimerButton);
             timer.Controls.Add(AddResultButton);
@@ -225,16 +225,6 @@
             timer.TabIndex = 8;
             timer.TabStop = false;
             timer.Text = "Timer";
-            // 
-            // OpenStopWatchModalButton
-            // 
-            OpenStopWatchModalButton.Location = new Point(681, 22);
-            OpenStopWatchModalButton.Name = "OpenStopWatchModalButton";
-            OpenStopWatchModalButton.Size = new Size(31, 23);
-            OpenStopWatchModalButton.TabIndex = 10;
-            OpenStopWatchModalButton.Text = "+";
-            OpenStopWatchModalButton.UseVisualStyleBackColor = true;
-            OpenStopWatchModalButton.Click += OpenStopWatchModalButton_Click;
             // 
             // AdjustTimerButton
             // 
@@ -275,7 +265,7 @@
             // 
             timerLabel.AutoSize = true;
             timerLabel.Font = new Font("Arial", 90F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            timerLabel.Location = new Point(7, 37);
+            timerLabel.Location = new Point(0, 0);
             timerLabel.Name = "timerLabel";
             timerLabel.Size = new Size(692, 134);
             timerLabel.TabIndex = 6;
@@ -389,7 +379,7 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, aboutToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, viewToolStripMenuItem, aboutToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(1384, 24);
@@ -453,6 +443,20 @@
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             exitToolStripMenuItem.Size = new Size(146, 22);
             exitToolStripMenuItem.Text = "E&xit";
+            // 
+            // viewToolStripMenuItem
+            // 
+            viewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { öppnaTidtagareIEgetFönsterToolStripMenuItem });
+            viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            viewToolStripMenuItem.Size = new Size(44, 20);
+            viewToolStripMenuItem.Text = "View";
+            // 
+            // öppnaTidtagareIEgetFönsterToolStripMenuItem
+            // 
+            öppnaTidtagareIEgetFönsterToolStripMenuItem.Name = "öppnaTidtagareIEgetFönsterToolStripMenuItem";
+            öppnaTidtagareIEgetFönsterToolStripMenuItem.Size = new Size(213, 22);
+            öppnaTidtagareIEgetFönsterToolStripMenuItem.Text = "Öppna timer i eget fönster";
+            öppnaTidtagareIEgetFönsterToolStripMenuItem.Click += öppnaTidtagareIEgetFönsterToolStripMenuItem_Click;
             // 
             // aboutToolStripMenuItem
             // 
@@ -624,6 +628,7 @@
         private Panel panel5;
         private ColorDialog colorDialog1;
         private ToolStripMenuItem aboutToolStripMenuItem;
-        private Button OpenStopWatchModalButton;
+        private ToolStripMenuItem viewToolStripMenuItem;
+        private ToolStripMenuItem öppnaTidtagareIEgetFönsterToolStripMenuItem;
     }
 }

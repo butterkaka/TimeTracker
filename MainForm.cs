@@ -78,7 +78,7 @@ namespace TimeTracker
 
         private StopWatchForm _stopWatchForm;
 
-        private void OpenStopWatchModalButton_Click(object sender, EventArgs e)
+        private void öppnaTidtagareIEgetFönsterToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowStopwatch();
         }
