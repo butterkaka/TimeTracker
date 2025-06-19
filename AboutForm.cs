@@ -19,11 +19,9 @@ namespace TimeTracker
             InitializeComponent();
             copyrightLabel.Text = copyrightLabel.Text.Replace("@year", DateTime.Now.Year.ToString());
 
-            string assemblyPath = Assembly.GetExecutingAssembly().Location;
-            var versionInfo = FileVersionInfo.GetVersionInfo(assemblyPath);
-            string version = versionInfo.FileVersion;
+            Version? version = Assembly.GetExecutingAssembly().GetName().Version;
 
-            versionLabel.Text = versionLabel.Text.Replace("@version", version);
+            versionLabel.Text = versionLabel.Text.Replace("@version", version.ToString());
 
         }
 

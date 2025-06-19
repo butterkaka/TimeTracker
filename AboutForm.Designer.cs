@@ -39,7 +39,7 @@
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(12, 12);
+            pictureBox1.Location = new Point(245, 12);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(90, 86);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -50,7 +50,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Arial", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(160, 25);
+            label1.Location = new Point(12, 23);
             label1.Name = "label1";
             label1.Size = new Size(184, 34);
             label1.TabIndex = 1;
@@ -71,7 +71,7 @@
             // 
             versionLabel.AutoSize = true;
             versionLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            versionLabel.Location = new Point(169, 66);
+            versionLabel.Location = new Point(19, 60);
             versionLabel.Name = "versionLabel";
             versionLabel.Size = new Size(132, 21);
             versionLabel.TabIndex = 3;
