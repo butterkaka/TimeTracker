@@ -424,8 +424,6 @@ namespace TimeTracker
             aboutForm.ShowDialog();
         }
 
-        #endregion
-
         private void SaveCompetition()
         {
             _competition.Name = CompetitionNametextBox.Text;
@@ -435,6 +433,8 @@ namespace TimeTracker
             FileService fileService = new();
             fileService.SaveCompetition(_competition);
         }
+        #endregion
+
 
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
