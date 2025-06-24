@@ -265,7 +265,8 @@
             // 
             timerLabel.AutoSize = true;
             timerLabel.Font = new Font("Arial", 90F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            timerLabel.Location = new Point(0, 0);
+            timerLabel.Location = new Point(19, 23);
+            timerLabel.Margin = new Padding(3, 20, 3, 0);
             timerLabel.Name = "timerLabel";
             timerLabel.Size = new Size(692, 134);
             timerLabel.TabIndex = 6;
