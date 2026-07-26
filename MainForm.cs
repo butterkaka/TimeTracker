@@ -17,6 +17,10 @@ namespace TimeTracker
 
         private BindingList<Participant> _allParticipants = new();
         private BindingSource _participantBindingSource = new();
+        private Result? _resultBeingEdited;
+        private int _participantStartNumberBeforeEdit;
+        private Participant? _participantBeforeStartNumberEdit;
+        private bool _restoringParticipantStartNumber;
 
         private bool _notInGoalParticipantFilter => NotInGoalParticipantFilterRadio.Checked;
 
@@ -43,6 +47,7 @@ namespace TimeTracker
 
             // Bind result to datagrid
             resultGridView.DataSource = _competition.Results;
+            resultGridView.CellBeginEdit += ResultGridView_CellBeginEdit;
             resultGridView.CellValueChanged += ResultGridView_CellValueChanged;
 
             // Rename columns
@@ -61,6 +66,7 @@ namespace TimeTracker
 
             ParticipantDataGridView.DataBindingComplete += ParticipantDataGridView_DataBindingComplete;
             ParticipantDataGridView.CellContentClick += ParticipantDataGridView_CellContentClick;
+            ParticipantDataGridView.RowPrePaint += ParticipantDataGridView_RowPrePaint;
 
             NotInGoalParticipantFilterRadio.Checked = false;
         }
@@ -174,9 +180,28 @@ namespace TimeTracker
             _competition.AddResult(_stopwatch.Elapsed);
         }
 
+        private void ResultGridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                return;
+
+            var grid = sender as DataGridView;
+            var columnName = grid.Columns[e.ColumnIndex].Name;
+
+            if (columnName == "ParticipantStartNumber" && grid.Rows[e.RowIndex].DataBoundItem is Result result)
+            {
+                _resultBeingEdited = result;
+                _participantStartNumberBeforeEdit = result.ParticipantStartNumber;
+                _participantBeforeStartNumberEdit = result.Participant;
+            }
+        }
+
         private void ResultGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                return;
+
+            if (_restoringParticipantStartNumber)
                 return;
 
             // Assume column for StartNumber is named "ParticipantStartNumber"
@@ -209,6 +234,7 @@ namespace TimeTracker
                         }
                         else
                         {
+                            RestoreParticipantStartNumber(result, grid);
                             return;
                         }
                     }
@@ -225,6 +251,29 @@ namespace TimeTracker
                     }
                 }
             }
+        }
+
+        private void RestoreParticipantStartNumber(Result result, DataGridView grid)
+        {
+            _restoringParticipantStartNumber = true;
+            try
+            {
+                if (ReferenceEquals(result, _resultBeingEdited))
+                {
+                    result.ParticipantStartNumber = _participantStartNumberBeforeEdit;
+                    result.Participant = _participantBeforeStartNumberEdit;
+                }
+                else
+                {
+                    result.ParticipantStartNumber = result.Participant?.StartNumber ?? 0;
+                }
+            }
+            finally
+            {
+                _restoringParticipantStartNumber = false;
+            }
+
+            grid.Refresh();
         }
 
         private bool HandleDuplicates(Participant participant, Result result)
@@ -302,6 +351,25 @@ namespace TimeTracker
                     FilterParticipants(NotInGoalParticipantFilterRadio.Checked);
                 }
             }
+        }
+
+        private void ParticipantDataGridView_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            if (e.RowIndex < 0)
+            {
+                return;
+            }
+
+            var row = ParticipantDataGridView.Rows[e.RowIndex];
+            if (row.DataBoundItem is not Participant participant)
+            {
+                return;
+            }
+
+            var hasResult = _competition.Results.Any(r => r.ParticipantStartNumber == participant.StartNumber);
+
+            row.DefaultCellStyle.BackColor = hasResult ? Color.Honeydew : ParticipantDataGridView.DefaultCellStyle.BackColor;
+            row.DefaultCellStyle.SelectionBackColor = hasResult ? Color.MediumSeaGreen : ParticipantDataGridView.DefaultCellStyle.SelectionBackColor;
         }
 
 
