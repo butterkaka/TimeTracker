@@ -30,8 +30,8 @@ namespace TimeTracker.Models
         [JsonIgnore]
         public TimeSpan TimeSpan
         {
-            get => TimeSpan.TryParseExact(ElapsedTime, @"hh\:mm\:ss", null, out var result) ? result : default;
-            set => ElapsedTime = value.ToString(@"hh\:mm\:ss");
+            get => TimeSpan.TryParseExact(ElapsedTime, new[] { @"hh\:mm\:ss\.ff", @"hh\:mm\:ss" }, null, out var result) ? result : default;
+            set => ElapsedTime = value.ToString(@"hh\:mm\:ss\.ff");
         }
 
         public static Result Create(TimeSpan timeSpan, int rank) => new Result(rank, timeSpan);

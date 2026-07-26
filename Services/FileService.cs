@@ -78,32 +78,40 @@ namespace TimeTracker.Services
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                using var workbook = new XLWorkbook();
-                var worksheet = workbook.Worksheets.Add("Resultat");
-
-                // Headers
-                worksheet.Cell(1, 1).Value = "Placering";
-                worksheet.Cell(1, 2).Value = "Startnummer";
-                worksheet.Cell(1, 3).Value = "Namn";
-                worksheet.Cell(1, 4).Value = "Klubb";
-                worksheet.Cell(1, 5).Value = "Klass";
-                worksheet.Cell(1, 6).Value = "Tid";
-
-                // Data
-                int row = 2;
-                foreach (var result in results)
+                try
                 {
-                    worksheet.Cell(row, 1).Value = result.Rank;
-                    worksheet.Cell(row, 2).Value = result.ParticipantStartNumber;
-                    worksheet.Cell(row, 3).Value = result.ParticipantName;
-                    worksheet.Cell(row, 4).Value = result.ParticipantClub;
-                    worksheet.Cell(row, 5).Value = result.ParticipantClass;
-                    worksheet.Cell(row, 6).Value = result.ElapsedTime;
-                    row++;
-                }
+                    using var workbook = new XLWorkbook();
+                    var worksheet = workbook.Worksheets.Add("Resultat");
 
-                workbook.SaveAs(saveFileDialog.FileName);
-                return true;
+                    // Headers
+                    worksheet.Cell(1, 1).Value = "Placering";
+                    worksheet.Cell(1, 2).Value = "Startnummer";
+                    worksheet.Cell(1, 3).Value = "Namn";
+                    worksheet.Cell(1, 4).Value = "Klubb";
+                    worksheet.Cell(1, 5).Value = "Klass";
+                    worksheet.Cell(1, 6).Value = "Tid";
+
+                    // Data
+                    int row = 2;
+                    foreach (var result in results)
+                    {
+                        worksheet.Cell(row, 1).Value = result.Rank;
+                        worksheet.Cell(row, 2).Value = result.ParticipantStartNumber;
+                        worksheet.Cell(row, 3).Value = result.ParticipantName;
+                        worksheet.Cell(row, 4).Value = result.ParticipantClub;
+                        worksheet.Cell(row, 5).Value = result.ParticipantClass;
+                        worksheet.Cell(row, 6).Value = result.ElapsedTime;
+                        row++;
+                    }
+
+                    workbook.SaveAs(saveFileDialog.FileName);
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Fel vid försök att spara resultat: {ex.Message}");
+                    return false;
+                }
             }
 
 
@@ -163,10 +171,18 @@ namespace TimeTracker.Services
             {
                 string filePath = openFileDialog.FileName;
 
-                var jsonStr = File.ReadAllText(filePath);
+                try
+                {
+                    var jsonStr = File.ReadAllText(filePath);
 
-                var competition = JsonSerializer.Deserialize<Competition>(jsonStr);
-                return competition;
+                    var competition = JsonSerializer.Deserialize<Competition>(jsonStr);
+                    return competition;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Fel vid försök att öppna tävling: {ex.Message}");
+                    return null;
+                }
             }
 
             return null;

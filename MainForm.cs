@@ -158,9 +158,9 @@ namespace TimeTracker
 
         private void ResetTimerButton_Click(object sender, EventArgs e)
         {
+            TimerIsRunning = false;
             _stopwatch = new TimeTrackerStopWatch(new TimeSpan());
             timerLabel.Text = _stopwatch.Elapsed.ToString(@"hh\:mm\:ss\.ff");
-            TimerIsRunning = false;
         }
 
 
@@ -285,10 +285,15 @@ namespace TimeTracker
 
         private void ParticipantDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (ParticipantDataGridView.Columns[e.ColumnIndex].Name == "FinishButton" && e.RowIndex >= 0)
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+            {
+                return;
+            }
+
+            if (ParticipantDataGridView.Columns[e.ColumnIndex].Name == "FinishButton")
             {
                 var participant = ParticipantDataGridView.Rows[e.RowIndex].DataBoundItem as Participant;
-                if (participant != null)
+                if (participant != null && TimerIsRunning && !participant.Finished)
                 {
                     participant.Finished = true;
                     _competition.AddResultAndParticipant(_stopwatch.Elapsed, participant);
